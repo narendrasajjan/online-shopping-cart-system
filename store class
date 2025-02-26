@@ -1,0 +1,25 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class Store {
+    private Map<String, Product> products;
+
+    public Store() {
+        this.products = new HashMap<>();
+        products.put("Laptop", new Product("Laptop", 1000, 10));
+        products.put("Smartphone", new Product("Smartphone", 700, 15));
+        products.put("Headphones", new Product("Headphones", 150, 20));
+        products.put("Tablet", new Product("Tablet", 300, 8));
+    }
+
+    public void displayProducts() {
+        System.out.println("Available products in the store:");
+        for (String name : products.keySet()) {
+            System.out.println(products.get(name));
+        }
+    }
+
+    public Product getProduct(String name) {
+        return products.get(name);
+    }
+}
