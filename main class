@@ -1,0 +1,74 @@
+import java.util.Scanner;
+
+public class OnlineShoppingCart {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Store store = new Store();
+        Cart cart = new Cart();
+
+        while (true) {
+            System.out.println("\n--- Welcome to the Online Store ---");
+            System.out.println("1. Browse Products");
+            System.out.println("2. View Cart");
+            System.out.println("3. Add Item to Cart");
+            System.out.println("4. Remove Item from Cart");
+            System.out.println("5. Checkout");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    store.displayProducts();
+                    break;
+
+                case 2:
+                    cart.viewCart();
+                    break;
+
+                case 3:
+                    store.displayProducts();
+                    System.out.print("Enter product name to add to cart: ");
+                    String productName = scanner.nextLine();
+                    Product product = store.getProduct(productName);
+                    if (product != null) {
+                        System.out.print("Enter quantity: ");
+                        int quantity = scanner.nextInt();
+                        cart.addItem(product, quantity);
+                    } else {
+                        System.out.println("Product not found.");
+                    }
+                    break;
+
+                case 4:
+                    cart.viewCart();
+                    System.out.print("Enter product name to remove from cart: ");
+                    String productToRemove = scanner.nextLine();
+                    Product productToRemoveObj = store.getProduct(productToRemove);
+                    if (productToRemoveObj != null) {
+                        cart.removeItem(productToRemoveObj);
+                    } else {
+                        System.out.println("Product not found in the cart.");
+                    }
+                    break;
+
+                case 5:
+                    double total = cart.calculateTotal();
+                    System.out.println("Your total is: $" + total);
+                    System.out.println("Proceeding to checkout...");
+                    cart = new Cart(); // Empty the cart after checkout
+                    break;
+
+                case 6:
+                    System.out.println("Thank you for shopping with us!");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
+}
